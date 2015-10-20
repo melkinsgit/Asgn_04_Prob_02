@@ -1,43 +1,63 @@
 package com.margaret;
 import java.util.*;
 
-/**
- * Created by Margaret on 10/5/2015. This is the code I got from Stack Overflow: http://stackoverflow.com/questions/24520782/java-shuffle-card-deck. I have edited it and made comments.
- */
 public class Deck {
 
-//    private Card[] deck = new Card[52];
-    private Stack<Card> deck = new Stack<Card>(); // the Stack Overflow version used an array, but I'm using a stack for a deck of cards; NOTE - I can cast to Vector if there are methods there that could be helpful
-    private int topCard;
+    static LinkedList<Card> deck = new LinkedList<>();
     final static int DECK_SIZE = 52;
 
     // constructor - no arg
     public Deck() {
-
-        topCard = 0;
-
-        // for 52 cards, make the value of deck equal to a constructor call to Card with the counter value
         for (int i = 0; i < DECK_SIZE; i++) {
             deck.push(new Card(i));
         }
     }
 
+    public static LinkedList<Card> getDeck() {
+        return deck;
+    }
+
+    public static void setDeck(LinkedList<Card> deck) {
+        Deck.deck = deck;
+    }
+
     public void shuffle() {
-
-        topCard = 0;
-
         Collections.shuffle(deck);
     }
 
     public Card dealCard() {
-        Card theCard;
-        if (topCard < deck.size()) {
-            theCard = deck.pop();
-            topCard++;
-        }
-        else
-            theCard = null;
+            Card theCard = deck.pop();
+            return theCard;
+    }
 
-        return theCard;
+    public ArrayList<Card> dealHand (){
+        ArrayList<Card> hand = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            hand.add(dealCard());
+        }
+        return hand;
+    }
+
+    public void showDeck (){
+        System.out.println("The deck is:");
+        for (Card card : deck) {
+            System.out.println(card);
+        }
+    }
+
+    /**
+     * As cards are dealt from the deck, the number of
+     * cards left decreases.  This function returns the
+     * number of cards that are still left in the deck.
+     */
+    public int cardsLeft(){
+        return 0;
+    }
+
+    public boolean moreCards() {
+        if (deck.size() > 0){
+            return true;
+        }
+        return false;
     }
 } // end Deck class
