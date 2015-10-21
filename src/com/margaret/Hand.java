@@ -42,7 +42,9 @@ public class Hand {
     /**
      * If the specified card is in the hand, it is removed.
      */
-    public void removeCard(Card c){}
+    public void removeCard(LinkedList<Card> card){
+        cards.remove(card);
+    }
 
     /**
      * Remove the card in the specified position from the

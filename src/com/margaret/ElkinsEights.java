@@ -1,7 +1,7 @@
 package com.margaret;
 import java.util.*;
 
-public class BlackJack {
+public class ElkinsEights {
 
     public static void main(String[] args) {
 
@@ -28,7 +28,20 @@ public class BlackJack {
         PickUp pickUpPile = new PickUp(discardPile.getTopCard());
         pickUpPile.showPickUpPile();
 
+//        LinkedList<Card> temp = new LinkedList<>();
         userPlay.Discard();
+        userPlay.showPlayHand();
+
+
+
+
+
+//        for (Card card : userPlay.playHand.getCards()){
+//
+//            System.out.println(temp);
+//            userPlay.playHand.removeCard(temp);
+//            userPlay.showPlayHand();
+//        }
 
 
 

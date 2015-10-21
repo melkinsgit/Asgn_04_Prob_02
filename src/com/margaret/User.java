@@ -13,7 +13,7 @@ public class User extends Player {
         super(name);
     }
 
-    public LinkedList<Card> Discard (){
+    public void Discard (){
         int choice = 0;
         int cardCount = 1;
         LinkedList<Card> dropCard = new LinkedList<>();
@@ -42,9 +42,6 @@ public class User extends Player {
             }
         }
 
-//         dropCard.add((this.playHand.(choice - 1));
-
-        return dropCard;
-
+        playHand.getCards().remove(choice-1);
     }
 }
