@@ -28,9 +28,10 @@ public class ElkinsEights {
         PickUp pickUpPile = new PickUp(discardPile.getTopCard());
         pickUpPile.showPickUpPile();
 
-//        LinkedList<Card> temp = new LinkedList<>();
+        userPlay.showPlayHand();
         userPlay.Discard();
         userPlay.showPlayHand();
+
 
 
 

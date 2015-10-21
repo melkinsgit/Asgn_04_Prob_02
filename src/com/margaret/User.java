@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-/**
- * Created by sn0173nd on 10/19/2015.
- */
 public class User extends Player {
 
     public User(String name) {
@@ -20,10 +17,6 @@ public class User extends Player {
         boolean valid = false;
         String choiceStr = "";
         Scanner scan = new Scanner(System.in);
-        for (Card card : this.playHand.getCards()){
-            System.out.println(cardCount + ": " + card);
-            cardCount++;
-        }
         System.out.println("Which card would you like to discard?");
         choiceStr = scan.nextLine();
 
@@ -41,6 +34,8 @@ public class User extends Player {
                 choiceStr = scan.nextLine();
             }
         }
+
+
 
         playHand.getCards().remove(choice-1);
     }

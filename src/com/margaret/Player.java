@@ -47,10 +47,12 @@ public class Player {
     }
 
     public void showPlayHand(){
+        int cardCount = 1;
         if (moreCards()) {
             System.out.println(playName + "'s hand is:");
             for (Card card : playHand.getCards()) {
-                System.out.println(card);
+                System.out.println(cardCount + ": " + card);
+                cardCount++;
             }
         }
     }
