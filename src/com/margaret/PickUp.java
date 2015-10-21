@@ -12,6 +12,14 @@ public class PickUp {
         this.pickUp = pickUpPile;
     }
 
+    public static LinkedList<Card> getPickUp() {
+        return pickUp;
+    }
+
+    public static void setPickUp(LinkedList<Card> pickUp) {
+        PickUp.pickUp = pickUp;
+    }
+
     public boolean moreCards() {
         if (pickUp.size() > 0) {
             return true;

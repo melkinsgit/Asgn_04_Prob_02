@@ -10,9 +10,8 @@ public class User extends Player {
         super(name);
     }
 
-    public void Discard (){
+    public LinkedList<Card> Discard (){
         int choice = 0;
-        int cardCount = 1;
         LinkedList<Card> dropCard = new LinkedList<>();
         boolean valid = false;
         String choiceStr = "";
@@ -35,8 +34,9 @@ public class User extends Player {
             }
         }
 
-
-
+        System.out.println("Card dropped is " + this.playHand.getCards().get(choice - 1));
+        dropCard.add(this.playHand.getCards().get(choice - 1));
         playHand.getCards().remove(choice-1);
+        return dropCard;
     }
 }

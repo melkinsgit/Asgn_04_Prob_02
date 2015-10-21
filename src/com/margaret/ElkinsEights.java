@@ -5,6 +5,9 @@ public class ElkinsEights {
 
     public static void main(String[] args) {
 
+        LinkedList<Card> temp = new LinkedList<>();
+        Card tempCard = new Card();
+
         // TODO while you still want to play
         // create a deck
         Deck deck = new Deck();
@@ -29,8 +32,11 @@ public class ElkinsEights {
         pickUpPile.showPickUpPile();
 
         userPlay.showPlayHand();
-        userPlay.Discard();
+        temp = userPlay.Discard();
+        tempCard = temp.pop();
+        pickUpPile.getPickUp().push(tempCard);
         userPlay.showPlayHand();
+        pickUpPile.showPickUpPile();
 
 
 
