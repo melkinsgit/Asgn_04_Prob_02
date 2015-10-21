@@ -12,48 +12,25 @@ public class BlackJack {
         // shuffle deck
         deck.shuffle();
 
-//        Hand compHand = new Hand ();
-//        Player user = new Player();
+        // welcome the player to the game and ask them to enter their name as they would like it to appear on screen; take in the result as String userName
+        String userName = "Margaret";
 
+        Computer compPlay = new Computer("Computer");
+        User userPlay = new User(userName);
 
-//        Hand compHand = new Hand();
-//        Hand userHand = new Hand();
-
-        Player compPlay = new Player("Computer");
-        Player userPlay = new Player("User");
-//
-        compPlay.showPlayHand();
-        userPlay.showPlayHand();
-
+        // deal computer and player 7 cards each
         compPlay.setPlayHand(new Hand(deck.dealHand()));
-        compPlay.showPlayHand();
-
         userPlay.setPlayHand(new Hand(deck.dealHand()));
+
         userPlay.showPlayHand();
 
         Discard discardPile = new Discard(deck.getDeck());
-        discardPile.showDiscardPile();
-
         PickUp pickUpPile = new PickUp(discardPile.getTopCard());
         pickUpPile.showPickUpPile();
 
-//        Card test = new Card();
-//        int i = 0;
-//        while (i <= 52){
-//            if (deck.moreCards()) {
-//                test = deck.dealCard();
-//                System.out.println(test);
-//                i++;
-//            }
-//            else {
-//                System.out.println("Out of cards!");
-//                break;
-//            }
-//        }
+        userPlay.Discard();
 
-        // deal player 7 cards - pop
 
-        // deal computer 7 cards - pop
 
         // make deck the pick up pile
 

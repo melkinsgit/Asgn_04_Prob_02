@@ -12,10 +12,19 @@ public class PickUp {
         this.pickUp = pickUpPile;
     }
 
+    public boolean moreCards() {
+        if (pickUp.size() > 0) {
+            return true;
+        }
+        else {
+            System.out.println("The pickup pile is empty.");
+            return false;
+        }
+    }
+
     public void showPickUpPile(){
-        for (Card card : pickUp){
-            System.out.println("The pick up pile is:");
-            System.out.println(card);
+        if (moreCards()) {
+            System.out.println("The top card on the pick up pile is: " + pickUp.peek());
         }
     }
 }

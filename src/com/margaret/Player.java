@@ -1,10 +1,11 @@
 package com.margaret;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Player {
-    private Hand playHand;
-    private String playName;
+    protected Hand playHand;
+    protected String playName;
 
     public Player (){
         this.playHand = new Hand();
@@ -20,7 +21,7 @@ public class Player {
         this.playHand = hand;
     }
 
-    public Player (ArrayList<Card> hand){
+    public Player (LinkedList<Card> hand){
         this.playHand = new Hand(hand);
     }
 
@@ -46,10 +47,24 @@ public class Player {
     }
 
     public void showPlayHand(){
-        System.out.println("The " + playName + " hand is:");
-        for (Card card : playHand.getCards()){
-            System.out.println(card);
+        if (moreCards()) {
+            System.out.println(playName + "'s hand is:");
+            for (Card card : playHand.getCards()) {
+                System.out.println(card);
+            }
         }
     }
 
+    public boolean moreCards() {
+        if (playHand.getCards().size() > 0) {
+            return true;
+        } else {
+            System.out.println(playName + " has no more cards.");
+            return false;
+        }
+    }
+
+//    public Card playCard(){
+//        Card theCard;
+//    }
 }

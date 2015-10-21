@@ -30,8 +30,8 @@ public class Deck {
             return theCard;
     }
 
-    public ArrayList<Card> dealHand (){
-        ArrayList<Card> hand = new ArrayList<>();
+    public LinkedList<Card> dealHand (){
+        LinkedList<Card> hand = new LinkedList<>();
         for (int i = 0; i < 7; i++) {
             hand.add(dealCard());
         }

@@ -1,24 +1,29 @@
 package com.margaret;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class Hand {
-    private ArrayList<Card> cards;
+    private LinkedList<Card> cards;
 
     /**
      * Constructor. Create a Hand object that is initially empty.
      */
     public Hand(){
-        cards = new ArrayList<>();
+        cards = new LinkedList<>();
     }
 
-    public Hand (ArrayList<Card> hand) {
+    public Hand (LinkedList<Card> hand) {
         this.cards = hand;
     }
 
-    public ArrayList<Card> getCards() {
+    public LinkedList<Card> getCards() {
         return cards;
+    }
+
+    public int getSize(){
+        return cards.size();
     }
 
     /**
