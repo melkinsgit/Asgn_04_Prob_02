@@ -1,6 +1,5 @@
 package com.margaret;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Discard {
@@ -12,9 +11,8 @@ public class Discard {
     }
 
     public void showDiscardPile(){
-        System.out.println("The discard pile is:");
-        for (Card card : discard){
-            System.out.println(card);
+        if (moreCards()) {
+            System.out.println("The top card on the pick up pile is: " + discard.peek());
         }
     }
 

@@ -1,6 +1,6 @@
 package com.margaret;
 
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Created by Margaret on 10/20/2015.
@@ -14,6 +14,13 @@ public class PickUp {
 
     public static LinkedList<Card> getPickUp() {
         return pickUp;
+    }
+
+    public void showPickUpPile(){
+        System.out.println("The pick up pile is:");
+        for (Card card : pickUp){
+            System.out.println(card);
+        }
     }
 
     public static void setPickUp(LinkedList<Card> pickUp) {
@@ -30,9 +37,10 @@ public class PickUp {
         }
     }
 
-    public void showPickUpPile(){
-        if (moreCards()) {
-            System.out.println("The top card on the pick up pile is: " + pickUp.peek());
-        }
+    public LinkedList<Card> getTopCard(){
+        LinkedList<Card> topCardList = new LinkedList<>();
+        topCardList.add(pickUp.pop());
+        return topCardList;
     }
+
 }
