@@ -9,6 +9,8 @@ public class ElkinsEights {
         Card tempCard = new Card();
         boolean myTurn = false;
         int pickPlay = 0;
+        String winner = "";
+
 
         // TODO while you still want to play
         // create a deck
@@ -33,35 +35,64 @@ public class ElkinsEights {
         PickUp pickUpPile = new PickUp(deck.getDeck());
 //        PickUp pickUpPile = new PickUp(discardPile.getTopCard());
         Discard discardPile = new Discard(pickUpPile.getTopCard());
-        discardPile.showDiscardPile();
 
         // TODO while there is no winner
 
         myTurn = true;
 
-        // while it's my turn
-        while (myTurn) {
-
-        userPlay.showPlayHand();
-        pickPlay = userPlay.chooseMove();
-
-        switch (pickPlay) {
-            case 1:{
-
-//            temp = userPlay.Discard();
-//            tempCard = temp.pop();
-            tempCard = userPlay.cardToDrop().pop();  // get the card the user wants to drop
-            pickUpPile.getPickUp().push(tempCard);  // then add it to the discard pile
-//            userPlay.showPlayHand();
+        while (winner.equals("")) {
             discardPile.showDiscardPile();
-                break;}
-        } // end switch case
-        } // end my turn
+            while (myTurn) {
 
-        while (!myTurn){
+                userPlay.showPlayHand();
+                pickPlay = userPlay.chooseMove();
 
-        } // end computer turn
+                switch (pickPlay) {
 
+                    case 1: {
+                        //            temp = userPlay.Discard();
+                        //            tempCard = temp.pop();
+                        tempCard = userPlay.cardToDrop().pop();  // get the card the user wants to drop
+                        discardPile.getDiscard().push(tempCard);  // then add it to the discard pile
+                        //            userPlay.showPlayHand();
+                        discardPile.showDiscardPile();
+                        myTurn = false;
+                        break;
+                    }
+
+                    case 2: {
+                        tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the pick up pile
+                        userPlay.addCard(tempCard);
+                        System.out.println(tempCard + " was added to your hand.");
+                        userPlay.showPlayHand();
+                        myTurn = false;
+                        break;
+                    }
+
+                    case 3: {
+                        System.out.println("I pass this turn. Can't play.");
+                        myTurn = false;
+                        break;
+                    }
+
+                } // end switch case
+            } // end my turn
+
+            while (!myTurn) {
+
+                compPlay.showPlayHand();
+                pickPlay = compPlay.chooseMove(discardPile, pickUpPile);
+
+                if (pickPlay == 0){
+                    tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the discard pile
+                    compPlay.addCard(tempCard);
+                    System.out.println("The " + tempCard + " was added to Computer's hand.");
+                    compPlay.showPlayHand();
+                }
+                myTurn = true;
+
+            } // end computer turn
+        }
 
 
 

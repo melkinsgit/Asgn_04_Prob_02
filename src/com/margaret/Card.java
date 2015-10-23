@@ -58,4 +58,6 @@ public class Card {
     public int getValue() {
         return cardNum%13;
     }
+
+
 } // end Card class

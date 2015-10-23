@@ -16,11 +16,19 @@ public class Discard {
         }
     }
 
+    public static LinkedList<Card> getDiscard() {
+        return discard;
+    }
+
     public boolean moreCards() {
         if (discard.size() > 0){
             return true;
         }
         return false;
+    }
+
+    public Card seeTopCard (){
+        return discard.peek();
     }
 
     public LinkedList<Card> getTopCard(){
