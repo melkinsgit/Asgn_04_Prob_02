@@ -32,9 +32,16 @@ public class ElkinsEights {
 //        userPlay.showPlayHand();
 
 //        Discard discardPile = new Discard(deck.getDeck());
-        PickUp pickUpPile = new PickUp(deck.getDeck());
+//        PickUp pickUpPile = new PickUp(deck.getDeck());
+        PickUp pickUpPile = new PickUp(); // jfor testing running out of cards in pick up pile
+        pickUpPile.getPickUp().push(deck.getDeck().pop());
+        pickUpPile.getPickUp().push(deck.getDeck().pop());
+        pickUpPile.getPickUp().push(deck.getDeck().pop());
+        pickUpPile.getPickUp().push(deck.getDeck().pop());
 //        PickUp pickUpPile = new PickUp(discardPile.getTopCard());
         Discard discardPile = new Discard(pickUpPile.getTopCard());
+        pickUpPile.showPickUpPile();
+        System.out.println("That's the pick up pile before we start playing.");
 
         // TODO while there is no winner
 
@@ -42,7 +49,7 @@ public class ElkinsEights {
 
         while (winner.equals("")) {
             discardPile.showDiscardPile();
-            while (myTurn) {
+            while (myTurn && !userPlay.win) {
 
                 userPlay.showPlayHand();
                 pickPlay = userPlay.chooseMove();
@@ -61,11 +68,24 @@ public class ElkinsEights {
                     }
 
                     case 2: {
-                        tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the pick up pile
-                        userPlay.addCard(tempCard);
-                        System.out.println(tempCard + " was added to your hand.");
-                        userPlay.showPlayHand();
-                        myTurn = false;
+                        if (!pickUpPile.moreCards()){
+                            refreshDiscard (discardPile, pickUpPile);
+                        }
+                        else {
+//                            System.out.println("The pick up is empty. The discard pile will be recycled as the pick up pile.");
+//                            tempCard = discardPile.getTopCard().pop();
+//                            System.out.println("The new discard pile is :" + tempCard);
+//                            pickUpPile.setPickUp(discardPile.getDiscard());
+//                            Collections.shuffle(pickUpPile.getPickUp());
+//                            System.out.println("The new pick up pile has " + pickUpPile.getPickUp().size() + " cards.");
+//                            discardPile.getDiscard().push(tempCard);
+//                            discardPile.seeTopCard();
+                            tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the pick up pile
+                            userPlay.addCard(tempCard);
+                            System.out.println(tempCard + " was added to your hand.");
+                            userPlay.showPlayHand();
+                            myTurn = false;
+                        }
                         break;
                     }
 
@@ -76,22 +96,41 @@ public class ElkinsEights {
                     }
 
                 } // end switch case
+                if (!userPlay.moreCards()){
+                    userPlay.setWin(true);
+                }
             } // end my turn
 
-            while (!myTurn) {
+            if (userPlay.win) {
+                System.out.println(userPlay.getPlayName() + " won the game.");
+                myTurn = true;
+                winner = userPlay.getPlayName();
+            }
+
+            while (!myTurn && !compPlay.win) {
 
                 compPlay.showPlayHand();
                 pickPlay = compPlay.chooseMove(discardPile, pickUpPile);
 
                 if (pickPlay == 0){
-                    tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the discard pile
-                    compPlay.addCard(tempCard);
-                    System.out.println("The " + tempCard + " was added to Computer's hand.");
-                    compPlay.showPlayHand();
+                    if (!pickUpPile.moreCards()){
+                        refreshDiscard (discardPile, pickUpPile);
+                    }
+                    else {
+                        tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the discard pile
+                        compPlay.addCard(tempCard);
+                        System.out.println("The " + tempCard + " was added to Computer's hand.");
+                        compPlay.showPlayHand();
+                    }
                 }
                 myTurn = true;
 
             } // end computer turn
+
+            if (!userPlay.win && compPlay.win){
+                System.out.println(compPlay.getPlayName()+ " won the game.");
+                winner = compPlay.getPlayName();
+            }
         }
 
 
@@ -147,4 +186,15 @@ public class ElkinsEights {
 //    System.out.println(dealt);
 
     } // end main fn
+
+    public static void refreshDiscard(Discard discard, PickUp pickup){
+        Card tempCard = new Card();
+        System.out.println("The pick up is empty. The discard pile will be recycled as the pick up pile.");
+        tempCard = discard.getTopCard().pop();
+        pickup.setPickUp(discard.getDiscard());
+        Collections.shuffle(pickup.getPickUp());
+        System.out.println("The new pick up pile has " + pickup.getPickUp().size() + " cards.");
+        discard.getDiscard().push(tempCard);
+        discard.showDiscardPile();
+    }
 } // end main class

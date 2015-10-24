@@ -12,12 +12,16 @@ public class Discard {
 
     public void showDiscardPile(){
         if (moreCards()) {
-            System.out.println("The top card on the pick up pile is: " + discard.peek());
+            System.out.println("The top card on the discard pile is: \n\t" + discard.peek());
         }
     }
 
     public static LinkedList<Card> getDiscard() {
         return discard;
+    }
+
+    public static void setDiscard(LinkedList<Card> discard) {
+        Discard.discard = discard;
     }
 
     public boolean moreCards() {

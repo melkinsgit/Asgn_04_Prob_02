@@ -8,6 +8,8 @@ import java.util.*;
 public class PickUp {
     static LinkedList<Card> pickUp;
 
+    public PickUp () { this.pickUp = new LinkedList<Card>();}
+
     public PickUp (LinkedList<Card> pickUpPile) {
         this.pickUp = pickUpPile;
     }

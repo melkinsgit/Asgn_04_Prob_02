@@ -6,6 +6,7 @@ import java.util.LinkedList;
 public class Player {
     protected Hand playHand;
     protected String playName;
+    protected boolean win;
 
     public Player (){
         this.playHand = new Hand();
@@ -15,6 +16,7 @@ public class Player {
     public Player (String name){
         this.playName = name;
         this.playHand = new Hand();
+        this.win = false;
     }
 
     public Player (Hand hand) {
@@ -38,6 +40,8 @@ public class Player {
         return playName;
     }
 
+    public boolean getWin() { return win; }
+
     public void setPlayHand(Hand playHand) {
         this.playHand = playHand;
     }
@@ -46,12 +50,14 @@ public class Player {
         this.playName = playName;
     }
 
+    public void setWin(boolean winVal) { this.win = winVal; }
+
     public void showPlayHand(){
         int cardCount = 1;
         if (moreCards()) {
             System.out.println(playName + "'s hand is:");
             for (Card card : playHand.getCards()) {
-                System.out.println(cardCount + ": " + card);
+                System.out.println("\t" + cardCount + ": " + card);
                 cardCount++;
             }
         }

@@ -26,9 +26,9 @@ public class Computer extends Player {
         int i = 0;
 
         for (Card card : playHand.getCards()) {
-            System.out.println("the rank of the card from the hand is " + card.getRank() + " and the rank of the discard top card is " + discard.seeTopCard().getRank());
-            System.out.println("the suit of the card from the hand is " + card.getSuit() + " and the suit of the discard top card is " + discard.seeTopCard().getSuit());
-            discard.showDiscardPile();
+//            System.out.println("the rank of the card from the hand is " + card.getRank() + " and the rank of the discard top card is " + discard.seeTopCard().getRank());
+//            System.out.println("the suit of the card from the hand is " + card.getSuit() + " and the suit of the discard top card is " + discard.seeTopCard().getSuit());
+//            discard.showDiscardPile();
             if (card.getRank() == discard.seeTopCard().getRank()) {
 //                tempCard = userPlay.cardToDrop().pop();  // get the card the user wants to drop
                 discard.getDiscard().push(card);  // add card it to the discard pile
@@ -48,17 +48,6 @@ public class Computer extends Player {
         return 0;
 
     }
-
-
-        // TODO does the computer have suit
-
-        // TODO does the computer have rank
-
-        // TODO does the computer have 8
-
-        // TODO pick a card and flag picked as true
-
-        // TODO if pick a card and nothing else pass
 
 
     public LinkedList<Card> cardToDrop (){
