@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class Discard {
 
-    static LinkedList<Card> discard;
+    public static LinkedList<Card> discard;
 
     public Discard (LinkedList<Card> discardPile){
         this.discard = discardPile;
@@ -31,7 +31,7 @@ public class Discard {
         return false;
     }
 
-    public Card seeTopCard (){
+    public static Card seeTopCard (){
         return discard.peek();
     }
 

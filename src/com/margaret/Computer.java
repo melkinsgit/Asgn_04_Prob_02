@@ -13,7 +13,7 @@ public class Computer extends Player {
         super(name);
     }
 
-    public int chooseMove (Discard discard, PickUp pickUp){
+    public int chooseMove (Discard discard){
 
 //        int choice = 0;
         Card tempCard;
@@ -26,15 +26,14 @@ public class Computer extends Player {
         int i = 0;
 
         for (Card card : playHand.getCards()) {
-//            System.out.println("the rank of the card from the hand is " + card.getRank() + " and the rank of the discard top card is " + discard.seeTopCard().getRank());
-//            System.out.println("the suit of the card from the hand is " + card.getSuit() + " and the suit of the discard top card is " + discard.seeTopCard().getSuit());
-//            discard.showDiscardPile();
-            if (card.getRank() == discard.seeTopCard().getRank()) {
+
+
+            if (card.getRank().equals(discard.seeTopCard().getRank())) {
 //                tempCard = userPlay.cardToDrop().pop();  // get the card the user wants to drop
                 discard.getDiscard().push(card);  // add card it to the discard pile
                 playHand.getCards().remove(i);
                 return 5;
-            } else if (card.getSuit() == discard.seeTopCard().getSuit()) {
+            } else if (card.getSuit().equals(discard.seeTopCard().getSuit())) {
                 discard.getDiscard().push(card);  // add card to the discard pile
                 playHand.getCards().remove(i);
                 return 5;
@@ -44,6 +43,7 @@ public class Computer extends Player {
                 return 5;
             }
             i++;
+
         }
         return 0;
 
