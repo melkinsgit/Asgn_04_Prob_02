@@ -6,7 +6,7 @@ import java.util.*;
  * Created by Margaret on 10/20/2015.
  */
 public class PickUp {
-    static LinkedList<Card> pickUp;
+    protected LinkedList<Card> pickUp;
 
     public PickUp () { this.pickUp = new LinkedList<Card>();}
 
@@ -14,7 +14,7 @@ public class PickUp {
         this.pickUp = pickUpPile;
     }
 
-    public static LinkedList<Card> getPickUp() {
+    public LinkedList<Card> getPickUp() {
         return pickUp;
     }
 
@@ -25,8 +25,8 @@ public class PickUp {
         }
     }
 
-    public static void setPickUp(LinkedList<Card> pickUp) {
-        PickUp.pickUp = pickUp;
+    public void setPickUp(LinkedList<Card> pickUp) {
+        this.pickUp = pickUp;
     }
 
     public boolean moreCards() {
