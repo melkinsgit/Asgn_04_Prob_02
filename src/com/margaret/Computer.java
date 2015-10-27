@@ -26,8 +26,6 @@ public class Computer extends Player {
         int i = 0;
 
         for (Card card : playHand.getCards()) {
-
-
             if (card.getRank().equals(discard.seeTopCard().getRank())) {
 //                tempCard = userPlay.cardToDrop().pop();  // get the card the user wants to drop
                 discard.getDiscard().push(card);  // add card it to the discard pile

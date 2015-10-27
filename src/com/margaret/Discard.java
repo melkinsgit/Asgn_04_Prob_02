@@ -40,4 +40,8 @@ public class Discard {
         topCardList.add(discard.pop());
         return topCardList;
     }
+
+    public void addCard (Card c){
+        this.getDiscard().push(c);
+    }
 }

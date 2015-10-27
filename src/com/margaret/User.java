@@ -10,9 +10,11 @@ public class User extends Player {
         super(name);
     }
 
-    public LinkedList<Card> cardToDrop (){
+
+
+    public Card cardToDrop (){
         int choice = 0;
-        LinkedList<Card> dropCard = new LinkedList<>();
+        Card dropCard = new Card();
         boolean valid = false;
         String choiceStr = "";
         Scanner scan = new Scanner(System.in);
@@ -32,11 +34,9 @@ public class User extends Player {
                 System.out.println("Sorry, that's not a valid choice. Please try again.");
                 choiceStr = scan.nextLine();
             }
+//            System.out.println("Card discarded is " + this.playHand.getCards().get(choice - 1));
+            dropCard = playHand.getCards().remove(choice-1);
         }
-
-        System.out.println("Card discarded is " + this.playHand.getCards().get(choice - 1));
-        dropCard.add(this.playHand.getCards().get(choice - 1));
-        playHand.getCards().remove(choice-1);
         return dropCard;
     }
 
