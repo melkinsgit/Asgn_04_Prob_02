@@ -43,7 +43,7 @@ public class ElkinsEights {
             userPlay.setPlayHand(new Hand(deck.dealHand()));
 
             // create a pick up pile made of what remains of the deck
-            PickUp pickUpPile = new PickUp(deck.getDeck());
+            PickUp pickUpPile = new PickUp(Deck.deck);
 
             // create a discard pile of the top card on the pick up pile
             // there is now one less card in the pick up pile, and one card in the discard pile
@@ -100,7 +100,7 @@ public class ElkinsEights {
                                 }
 
                                 tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the pick up pile
-                                System.out.println("the new card from the pick up pile is " + tempCard);
+//                                System.out.println("the new card from the pick up pile is " + tempCard);
                                 userPlay.addCard(tempCard);
                                 System.out.println(tempCard + " was added to your hand.");
                                 userPlay.showPlayHand();
@@ -151,8 +151,8 @@ public class ElkinsEights {
                             }
                         }
 
-                        if (!compPlay.moreCards()) {  // and if the user played their last card they won
-                            compPlay.setWin(true);  // set the user's boolean to true showing they won
+                        if (!compPlay.moreCards()) {  // and if the Computer played their last card they won
+                            compPlay.setWin(true);  // set the Computer's boolean to true showing they won
                             System.out.println(compPlay.getPlayName() + " won the game.");  // print a message to the screen
                             winner = compPlay.getPlayName();  // give the winner string a value
                             gameOver = true;  // and set the game over boolean to true showing the game is over
@@ -166,81 +166,21 @@ public class ElkinsEights {
                             winner = compPlay.getPlayName();
                             gameOver = true;
                         }
-
                     } // end computer turn
-
                     if (gameOver) break;
-
-//                    if (!userPlay.win && compPlay.win) {
-//                        System.out.println(compPlay.getPlayName() + " won the game.");
-//                        winner = compPlay.getPlayName();
-//                        gameOver = true;
-//                    }
-//                if (!userPlay.win && !compPlay.win) {
-//                    System.out.println("It's a tie. No winner this time.");
-//                    gameOver = true;
-//                }
-                }
-
-
-            }
-
-
-//        for (Card card : userPlay.playHand.getCards()){
-//
-//            System.out.println(temp);
-//            userPlay.playHand.removeCard(temp);
-//            userPlay.showPlayHand();
-//        }
-
-
-            // make deck the pick up pile
-
-            // make top card from pick up pile the discard pile
-
-            // until there is a winner
-            // take turn Player
-            // show hand
-            // pick card to play
-            // if card to play
-            // pop from hand, push to discard
-            // else if no card to play
-            // pick from discard
-            // if still no card to play
-            // pass
-            // else
-            // pop card and push to discard
-
-            // take turn Computer
-            // see hand (don't display)
-            // strategize card to pick
-            // do I have the same suit?
-            // play card
-            // do I have the same rank?
-            // play card
-            // do I have an 8?
-            // what's my strongest suit?
-            // set suit
-            // play card
-
-            // output game results
-            // TODO play again?
+                } // end winner loop
+            } // end game over loop
 
             System.out.println("Want to play another game, " + userPlay.getPlayName() + "? (y or n)");
             reply = c.nextLine();
             if (reply.equals("n") || reply.equals("N")){
                 playMore = false;
             }
-        }
-
-
-//    Card dealt = deck.dealCard();
-//    System.out.println(dealt);
-
+        }  // end keep playing loop
     } // end main fn
 
     public static void refreshDiscard(Discard discard, PickUp pickup){
-        Card tempCard1 = new Card();
+        Card tempCard1;
         System.out.println("The pick up is empty. The discard pile will be recycled as the pick up pile.");
         System.out.println("There are " + discard.getDiscard().size() + " cards in the discard pile. And the top card is: ");
         tempCard1 = discard.getTopCard().pop();  // remove the top card from the discard pile
@@ -250,9 +190,9 @@ public class ElkinsEights {
         Collections.shuffle(pickup.getPickUp());  // shuffle the pick up pile
         System.out.println("The new pick up pile has been shuffled.");
         discard.showDiscardPile();  // this shows the tempCard1 value still in the pile, even though it was popped
-        discard.getDiscard().push(tempCard1);  // then I push tempCard1 to the discard pile ...
+        discard.addCard(tempCard1);  // then I push tempCard1 to the discard pile ...
         discard.showDiscardPile();  // ... and now the discard pile shows ONLY the tempCard1
-    }
+    }  // end refreshDiscard method
 
     public static boolean isValid (Card card, Discard discard) {
         if (card.getRank().equals(discard.seeTopCard().getRank())) {
@@ -263,5 +203,5 @@ public class ElkinsEights {
             return true;  // add card to the discard pile
         }
         return false;
-    }
+    }  // end isValid method
 } // end main class

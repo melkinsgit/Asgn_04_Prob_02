@@ -28,15 +28,15 @@ public class User extends Player {
                 if (choice >= 1 && choice <= this.playHand.getSize()) {
                     valid = true;
                 }  else {
-                    System.out.println("Sorry, that's not a valid choice. Please try again.");
+                    System.out.println("Sorry, that's not a valid choice from hand. Please try again.");
                     choiceStr = scan.nextLine();
                 }
             } catch (Exception ex) {
-                System.out.println("Sorry, that's not a valid choice. Please try again.");
+                System.out.println("Sorry, that's not a valid choice another exception. Please try again.");
                 choiceStr = scan.nextLine();
             }
-            dropCard = playHand.getCards().remove(choice-1);
         }
+        dropCard = playHand.getCards().remove(choice-1);
         return dropCard;
     }
 

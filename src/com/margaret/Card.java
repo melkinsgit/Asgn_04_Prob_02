@@ -34,14 +34,6 @@ public class Card {
         }
     }
 
-    public int getCardNum() {
-        return cardNum;
-    }
-
-    public int getCardVal(Card card){
-        return 0;
-    }
-
     // override of parent class toString(), super.toString() the parent
     public String toString() {
         return ranks[cardNum%13] + " of " + suits[cardNum/13];
@@ -53,10 +45,6 @@ public class Card {
 
     public String getRank() {
         return ranks[cardNum%13];
-    }
-
-    public int getValue() {
-        return cardNum%13;
     }
 
 

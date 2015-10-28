@@ -19,19 +19,6 @@ public class Player {
         this.win = false;
     }
 
-    public Player (Hand hand) {
-        this.playHand = hand;
-    }
-
-    public Player (LinkedList<Card> hand){
-        this.playHand = new Hand(hand);
-    }
-
-    public Player(Hand playHand, String playName) {
-        this.playHand = playHand;
-        this.playName = playName;
-    }
-
     public Hand getPlayHand() {
         return playHand;
     }
@@ -71,8 +58,4 @@ public class Player {
             return false;
         }
     }
-
-//    public Card playCard(){
-//        Card theCard;
-//    }
 }

@@ -13,14 +13,6 @@ public class Deck {
         }
     }
 
-    public static LinkedList<Card> getDeck() {
-        return deck;
-    }
-
-    public static void setDeck(LinkedList<Card> deck) {
-        Deck.deck = deck;
-    }
-
     public void shuffle() {
         Collections.shuffle(deck);
     }
@@ -36,22 +28,6 @@ public class Deck {
             hand.add(dealCard());
         }
         return hand;
-    }
-
-    public void showDeck (){
-        System.out.println("The deck is:");
-        for (Card card : deck) {
-            System.out.println(card);
-        }
-    }
-
-    /**
-     * As cards are dealt from the deck, the number of
-     * cards left decreases.  This function returns the
-     * number of cards that are still left in the deck.
-     */
-    public int cardsLeft(){
-        return 0;
     }
 
     public boolean moreCards() {
