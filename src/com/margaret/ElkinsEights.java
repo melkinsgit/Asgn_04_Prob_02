@@ -7,89 +7,88 @@ public class ElkinsEights {
 
     public static void main(String[] args) {
 
-        LinkedList<Card> temp = new LinkedList<>();
-        Card tempCard = new Card();
-        boolean myTurn = false;
-        int pickPlay = 0;
-        String winner = "";
-        boolean gameOver = false;
-        boolean playMore = true;
-        String reply;
+        LinkedList<Card> temp = new LinkedList<>();  // not used
+        Card tempCard;  // doesn't need constructor call because value assigned before var is used
+        boolean myTurn; // doesn't need initial value because value assigned before var is used
+        int pickPlay;  // doesn't need initial value because value assigned before var is used
+        String winner;  // doesn't need initial value because value assigned before var is used
+        boolean gameOver;  // doesn't need initial value because value assigned before var is used
+        boolean playMore = true;  // true to start loop
+        String reply;  // doesn't need initial value because value assigned before var is used
         Scanner c = new Scanner(System.in);
 
+        // welcome the player to the game and ask them to enter their name as they would like it to appear on screen; take in the result as String userName
+//        System.out.println("Welcome to Elkins Eights. Enter the name you'd like to use during this game.");
+//        String userName = c.nextLine();
+        String userName = "Margaret";
 
-        // TODO while you still want to play
+        // loop that plays the game more than once if the user Player wants to
         while (playMore) {
+
+            gameOver = false;  // the game isn't over at the beginning
+            winner = "";  // there is no winner at the beginning
 
             // create a deck
             Deck deck = new Deck();
 
-            // shuffle deck
+            // shuffle the deck
             deck.shuffle();
 
-            // welcome the player to the game and ask them to enter their name as they would like it to appear on screen; take in the result as String userName
-            String userName = "Margaret";
-
+            // instantiate a Computer and User, which are subclasses of Player
             Computer compPlay = new Computer("Computer");
-            User userPlay = new User(userName);
+            User userPlay = new User(userName);  // give the user the name the user entered at the beginning
 
             // deal computer and player 7 cards each
             compPlay.setPlayHand(new Hand(deck.dealHand()));
             userPlay.setPlayHand(new Hand(deck.dealHand()));
 
-//        userPlay.showPlayHand();
-
-//        Discard discardPile = new Discard(deck.getDeck());
+            // create a pick up pile made of what remains of the deck
             PickUp pickUpPile = new PickUp(deck.getDeck());
 
-            pickUpPile.showPickUpPile();
-//        PickUp pickUpPile = new PickUp(discardPile.getTopCard());
+            // create a discard pile of the top card on the pick up pile
+            // there is now one less card in the pick up pile, and one card in the discard pile
             Discard discardPile = new Discard(pickUpPile.getTopCard());
-            System.out.println("After moving one card to the discard pile the discard pile is: ");
-            discardPile.showDiscardPile();
-            System.out.println("And the pick up pile is: ");
-            pickUpPile.showPickUpPile();
-            System.out.println("That's the pick up pile before we start playing.");
 
+            // until someone wins or we run out of cards in the pick up pile
             while (!gameOver) {
-
+                // start with the user's turn
                 myTurn = true;
+                // the user and the computer will play until one of them wins
 
                 while (winner.equals("")) {
-                    discardPile.showDiscardPile();
-                    while (myTurn && !userPlay.win) {
+                    // then the user takes a turn until they win or their turn is over
 
+                    while (myTurn && !userPlay.win) {
+                        discardPile.showDiscardPile();
+                        // show the user their hand
                         userPlay.showPlayHand();
+                        // then call a method that will have the user enter which game action they want, discard or pickup
                         pickPlay = userPlay.chooseMove();
 
                         switch (pickPlay) {
-
+                            // the user has chosen to discard from their hand
                             case 1: {
-                                //            temp = userPlay.Discard();
-                                //            tempCard = temp.pop();
-//                            tempCard = userPlay.cardToDrop().pop();  // get the card the user wants to drop
-
                                 boolean discarded = false;
+                                // call a method to get the card the user wants to discard
                                 tempCard = userPlay.cardToDrop();
+
+                                // and until that card is a valid play, ask the user to keep choosing cards
                                 while (!discarded) {
-                                    if (isValid(tempCard, discardPile)) {
-//                                    discardPile.getDiscard().push(tempCard);  // then add it to the discard pile
-                                        discardPile.addCard(tempCard);
-                                        System.out.println("Card discarded is " + tempCard);
-                                        discarded = true;
-                                    } else {
+                                    if (isValid(tempCard, discardPile)) {  // if the user makes a valid choice
+                                        discardPile.addCard(tempCard);  // put that card on the top of the discard pile
+                                        System.out.println("Card discarded is " + tempCard);  // confirm the discard for the user
+                                        discarded = true;  // then set the flag to exit the loop
+                                    } else {  // otherwise, ask the user for another card to discard
                                         System.out.println("Sorry, you can't discard that card. Try again.");
-//                                    userPlay.playHand.getCards().push(tempCard);
-                                        userPlay.addCard(tempCard);
+                                        userPlay.showPlayHand();
+                                        discardPile.showDiscardPile();
+                                        userPlay.addCard(tempCard);  // and put the card they originally discarded, back in their hand.
+                                        tempCard = userPlay.cardToDrop();  // call the method to get the card the user wants to discard
                                     }
-                                }
+                                } // end of !discarded loop
 
-//                            System.out.println("Card discarded is " + tempCard);
-
-                                //            userPlay.showPlayHand();
-                                discardPile.showDiscardPile();
-                                myTurn = false;
-                                break;
+                                myTurn = false;  // now the user's turn is over
+                                break;  // so break out of the switch statement
                             }
 
                             case 2: {
@@ -99,9 +98,6 @@ public class ElkinsEights {
                                     gameOver = true;
                                     break;
                                 }
-//                            refreshDiscard (discardPile, pickUpPile);
-//                            System.out.println("Just returned from refresh discard now the top of the discard is " + discardPile.seeTopCard());
-//                            System.out.println("Also, there are " + pickUpPile.getPickUp().size() + " cards in the pick up pile now.");
 
                                 tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the pick up pile
                                 System.out.println("the new card from the pick up pile is " + tempCard);
@@ -112,34 +108,31 @@ public class ElkinsEights {
                                 break;
                             }
 
-                            case 3: {
-                                System.out.println("I pass this turn. Can't play.");
+                            default: {
                                 myTurn = false;
                                 break;
                             }
 
                         } // end switch case
 
-                        if (gameOver) break;
+                        // game over can be set to true if there are no more cards in the pick up pile, so make sure the game hasn't ended
+                        if (gameOver) break;  // if the game is over break out of the while loop for the user's turn
 
-                        if (!userPlay.moreCards()) {
-                            userPlay.setWin(true);
-                            gameOver = true;
+                        if (!userPlay.moreCards()) {  // and if the user played their last card they won
+                            userPlay.setWin(true);  // set the user's boolean to true showing they won
+                            System.out.println(userPlay.getPlayName() + " won the game.");  // print a message to the screen
+                            winner = userPlay.getPlayName();  // give the winner string a value
+                            gameOver = true;  // and set the game over boolean to true showing the game is over
                         }
                     } // end my turn
 
-                    if (userPlay.win) {
-                        System.out.println(userPlay.getPlayName() + " won the game.");
-                        myTurn = true;
-                        winner = userPlay.getPlayName();
-                        userPlay.setWin(true);
-                        gameOver = true;
+                    if (userPlay.win) {  // if the user has won, don't give the computer another turn
                         break;
                     }
 
-                    if (gameOver) break;
-
                     while (!myTurn && !compPlay.win) {
+
+                        discardPile.showDiscardPile();
 
                         compPlay.showPlayHand();
                         pickPlay = compPlay.chooseMove(discardPile);
@@ -150,25 +143,39 @@ public class ElkinsEights {
                                 myTurn = true;
                                 gameOver = true;
                                 break;
-//                        refreshDiscard (discardPile, pickUpPile);
                             } else {
-                                tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the   pile
+                                tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the discard pile
                                 compPlay.addCard(tempCard);
                                 System.out.println("The " + tempCard + " was added to Computer's hand.");
                                 compPlay.showPlayHand();
                             }
                         }
+
+                        if (!compPlay.moreCards()) {  // and if the user played their last card they won
+                            compPlay.setWin(true);  // set the user's boolean to true showing they won
+                            System.out.println(compPlay.getPlayName() + " won the game.");  // print a message to the screen
+                            winner = compPlay.getPlayName();  // give the winner string a value
+                            gameOver = true;  // and set the game over boolean to true showing the game is over
+                        }
                         myTurn = true;
+
+                        if (gameOver) break;
+
+                        if (!userPlay.win && compPlay.win) {
+                            System.out.println(compPlay.getPlayName() + " won the game.");
+                            winner = compPlay.getPlayName();
+                            gameOver = true;
+                        }
 
                     } // end computer turn
 
                     if (gameOver) break;
 
-                    if (!userPlay.win && compPlay.win) {
-                        System.out.println(compPlay.getPlayName() + " won the game.");
-                        winner = compPlay.getPlayName();
-                        gameOver = true;
-                    }
+//                    if (!userPlay.win && compPlay.win) {
+//                        System.out.println(compPlay.getPlayName() + " won the game.");
+//                        winner = compPlay.getPlayName();
+//                        gameOver = true;
+//                    }
 //                if (!userPlay.win && !compPlay.win) {
 //                    System.out.println("It's a tie. No winner this time.");
 //                    gameOver = true;
@@ -219,13 +226,11 @@ public class ElkinsEights {
             // output game results
             // TODO play again?
 
-            System.out.println("Want to play another game? (y or n)");
+            System.out.println("Want to play another game, " + userPlay.getPlayName() + "? (y or n)");
             reply = c.nextLine();
             if (reply.equals("n") || reply.equals("N")){
                 playMore = false;
             }
-
-
         }
 
 

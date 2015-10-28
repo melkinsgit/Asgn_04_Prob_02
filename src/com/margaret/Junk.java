@@ -36,4 +36,10 @@ public class Junk {
 //                break;
 //            }
 //        }
+
+    // from case 2 when I thought I could refresh
+
+//                            refreshDiscard (discardPile, pickUpPile);
+//                            System.out.println("Just returned from refresh discard now the top of the discard is " + discardPile.seeTopCard());
+//                            System.out.println("Also, there are " + pickUpPile.getPickUp().size() + " cards in the pick up pile now.");
 }
