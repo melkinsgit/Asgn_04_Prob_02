@@ -12,7 +12,7 @@ public class Discard {
 
     public void showDiscardPile(){
         if (moreCards()) {
-            System.out.println("The top card on the discard pile is: \n\t" + discard.peek());
+            System.out.println("The top card on the discard pile is: " + discard.peek());
         }
     }
 

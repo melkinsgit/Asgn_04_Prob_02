@@ -10,9 +10,7 @@ public class User extends Player {
         super(name);
     }
 
-
-
-    public Card cardToDrop (){
+    public Card cardToDrop() {
         int choice = 0;
         Card dropCard = new Card();
         boolean valid = false;
@@ -27,7 +25,7 @@ public class User extends Player {
                 choice = Integer.parseInt(choiceStr);
                 if (choice >= 1 && choice <= this.playHand.getSize()) {
                     valid = true;
-                }  else {
+                } else {
                     System.out.println("Sorry, that's not a valid choice from hand. Please try again.");
                     choiceStr = scan.nextLine();
                 }
@@ -36,11 +34,11 @@ public class User extends Player {
                 choiceStr = scan.nextLine();
             }
         }
-        dropCard = playHand.getCards().remove(choice-1);
+        dropCard = playHand.getCards().remove(choice - 1);
         return dropCard;
     }
 
-    public int chooseMove (){
+    public int chooseMove() {
 
         int choice = 0;
         boolean valid = false;
@@ -66,7 +64,78 @@ public class User extends Player {
         return choice;
     }
 
-    public void addCard (Card c){
+    public void addCard(Card c) {
         playHand.getCards().push(c);
     }
+
+    public static boolean isValid(Card card, Discard discard) {
+        if (card.getRank().equals(discard.seeTopCard().getRank())) {
+            return true;  // add card it to the discard pile
+        } else if (card.getSuit().equals(discard.seeTopCard().getSuit())) {
+            return true;  // add card to the discard pile
+        } else if (card.getRank().equals("8")) {
+            return true;  // add card to the discard pile
+        }
+        return false;
+    }  // end isValid method
+
+    public boolean userTurn(Discard discardPile, PickUp pickUpPile) {
+
+        Card tempCard;
+        int pickPlay;
+        boolean gameOver = false;
+
+
+        // show them the top card on the discard pile
+        discardPile.showDiscardPile();
+        // show the user their hand
+        showPlayHand();
+
+        // then call a method that will have the user enter which game action they want, discard or pickup
+        pickPlay = chooseMove();
+
+        if (pickPlay == 1) {
+            // the user has chosen to discard from their hand
+
+            boolean discarded = false;
+            // call a method to get the card the user wants to discard
+            tempCard = cardToDrop();
+
+            // and until that card is a valid play, ask the user to keep choosing cards
+            while (!discarded) {
+                if (isValid(tempCard, discardPile)) {  // if the user makes a valid choice
+                    discardPile.addCard(tempCard);  // put that card on the top of the discard pile
+                    System.out.println(this.playName + " discarded the " + tempCard);  // confirm the discard for the user
+                    discarded = true;  // then set the flag to exit the loop
+                } else {  // otherwise, ask the user for another card to discard
+                    System.out.println("Sorry, you can't discard that card. Try again.");
+                    this.addCard(tempCard);  // and put the card they originally discarded, back in their hand.
+                    showPlayHand();
+                    discardPile.showDiscardPile();
+                    tempCard = cardToDrop();  // call the method to get the card the user wants to discard
+                }
+            } // end of !discarded loop
+        }
+
+            if (pickPlay == 2) {
+                if (!pickUpPile.moreCards()) {
+                    System.out.println("Out of cards. Game over!");
+                    gameOver = true;
+                }
+
+                tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the pick up pile
+                addCard(tempCard);
+                System.out.println(tempCard + " was added to your hand.");
+                showPlayHand();
+            }
+         // game over can be set to true if there are no more cards in the pick up pile, so make sure the game hasn't ended
+
+        if (!gameOver && !this.moreCards()) {  // and if the user played their last card they won
+            this.setWin(true);  // set the user's boolean to true showing they won
+            System.out.println(this.getPlayName() + " won the game.");  // print a message to the screen
+            gameOver = true;  // and set the game over boolean to true showing the game is over
+        }
+        return gameOver;
+    }
 }
+

@@ -2,9 +2,6 @@ package com.margaret;
 
 import java.util.*;
 
-/**
- * Created by Margaret on 10/20/2015.
- */
 public class PickUp {
     protected LinkedList<Card> pickUp;
 

@@ -13,6 +13,8 @@ public class Deck {
         }
     }
 
+    public Deck (int i){ deck = new LinkedList<>();}
+
     public void shuffle() {
         Collections.shuffle(deck);
     }
@@ -20,6 +22,10 @@ public class Deck {
     public Card dealCard() {
             Card theCard = deck.pop();
             return theCard;
+    }
+
+    public static LinkedList<Card> getDeck() {
+        return deck;
     }
 
     public LinkedList<Card> dealHand (){
