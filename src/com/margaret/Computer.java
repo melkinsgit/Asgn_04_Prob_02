@@ -2,6 +2,7 @@ package com.margaret;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Computer extends Player {
@@ -11,6 +12,9 @@ public class Computer extends Player {
     }
 
     public int chooseMove (Discard discard){
+        Random rnd = new Random();
+        int rndSuit;
+        rndSuit = rnd.nextInt(4);
         int i = 0;
 
         for (Card card : playHand.getCards()) {
@@ -55,15 +59,22 @@ public class Computer extends Player {
         pickPlay = this.chooseMove(discardPile);
 
         if (pickPlay == 0) {
+            System.out.println("The computer has chosen to pick up a card.");
             if (!pickUpPile.moreCards()) {
-                System.out.println("Out of cards. Game over!");
-                gameOver = true;
-            } else {
-                tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the discard pile
-                this.addCard(tempCard);
-                System.out.println("A card was added to Computer's hand.");
-//                this.showPlayHand();
+                if (discardPile.getDiscard().size() < 2) {
+                    System.out.println("There are no cards in play. Game over.");
+//                    discardPile.showDiscardPile();
+//                    pickUpPile.showPickUpPile();
+                    gameOver = true;
+                    return gameOver;
+                } else {
+                    ElkinsEights.refreshDiscard(discardPile, pickUpPile);
+                }
             }
+            tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the discard pile
+            this.addCard(tempCard);
+            System.out.println("A card was added to Computer's hand.");
+//                this.showPlayHand();
         }
         if (!gameOver && !this.moreCards()) {  // and if the user played their last card they won
             this.setWin(true);  // set the user's boolean to true showing they won

@@ -11,6 +11,9 @@ public class Discard {
     }
 
     public void showDiscardPile(){
+        Card inPlay = new Card();
+        Card tempCard;
+
         if (moreCards()) {
             System.out.println("The top card on the discard pile is: " + discard.peek());
         }
@@ -23,6 +26,8 @@ public class Discard {
     public void setDiscard(LinkedList<Card> discard) {
         this.discard = discard;
     }
+
+    public void setDiscard(int i) {this.discard = new LinkedList<Card>();}
 
     public boolean moreCards() {
         if (discard.size() > 0){

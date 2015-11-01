@@ -5,6 +5,10 @@ import java.util.*;
 public class PickUp {
     protected LinkedList<Card> pickUp;
 
+    public PickUp () {
+        this.pickUp = new LinkedList<Card>();
+    }
+
     public PickUp (LinkedList<Card> pickUpPile) {
         this.pickUp = pickUpPile;
     }
@@ -29,7 +33,6 @@ public class PickUp {
             return true;
         }
         else {
-            System.out.println("The pickup pile is empty.");
             return false;
         }
     }

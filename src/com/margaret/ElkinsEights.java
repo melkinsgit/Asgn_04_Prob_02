@@ -4,8 +4,6 @@ import java.util.*;
 
 public class ElkinsEights {
 
-    protected Card inPlay = new Card();
-
     public static void main(String[] args) {
 
         LinkedList<Card> temp = new LinkedList<>();  // not used
@@ -18,10 +16,12 @@ public class ElkinsEights {
         String reply;  // doesn't need initial value because value assigned before var is used
         Scanner c = new Scanner(System.in);
 
+
+        Card inPlay = new Card();
+
         // welcome the player to the game and ask them to enter their name as they would like it to appear on screen; take in the result as String userName
-//        System.out.println("Welcome to Elkins Eights. Enter the name you'd like to use during this game.");
-//        String userName = c.nextLine();
-        String userName = "Margaret";
+        System.out.println("Welcome to Elkins Eights. Enter the name you'd like to use during this game.");
+        String userName = c.nextLine();
 
         // loop that plays the game more than once if the user Player wants to
         while (playMore) {
@@ -42,9 +42,7 @@ public class ElkinsEights {
 
             // deal computer and player 7 cards each
             compPlay.setPlayHand(new Hand(deck.dealHand()));
-//            compPlay.showPlayHand();
             userPlay.setPlayHand(new Hand(deck.dealHand()));
-//            userPlay.showPlayHand();
 
             // create a pick up pile made of what remains of the deck
             PickUp pickUpPile = new PickUp(Deck.deck);
@@ -56,7 +54,6 @@ public class ElkinsEights {
 
             // until someone wins or we run out of cards in the pick up pile
             while (!gameOver) {
-
                 gameOver = userPlay.userTurn(discardPile, pickUpPile);
                 if (gameOver){break;}
                 gameOver = compPlay.compTurn(discardPile, pickUpPile);
@@ -71,18 +68,17 @@ public class ElkinsEights {
     } // end main fn
 
     public static void refreshDiscard(Discard discard, PickUp pickup){
+        System.out.println("The pick up pile was out of cards. It has been refreshed.");
         Card tempCard1;
-        System.out.println("The pick up is empty. The discard pile will be recycled as the pick up pile.");
-        System.out.println("There are " + discard.getDiscard().size() + " cards in the discard pile. And the top card is: ");
         tempCard1 = discard.getTopCard().pop();  // remove the top card from the discard pile
-        System.out.println(tempCard1);
         pickup.setPickUp(discard.getDiscard());  // make the pick up pile what's left of the discard pile
-        System.out.println("There are " + pickup.getPickUp().size() + " cards in the pick up pile.");
+//        pickup.showPickUpPile();
+        discard.setDiscard(0);  // empty the old discard pile
         Collections.shuffle(pickup.getPickUp());  // shuffle the pick up pile
-        System.out.println("The new pick up pile has been shuffled.");
-        discard.showDiscardPile();  // this shows the tempCard1 value still in the pile, even though it was popped
-        discard.addCard(tempCard1);  // then I push tempCard1 to the discard pile ...
-        discard.showDiscardPile();  // ... and now the discard pile shows ONLY the tempCard1
+//        System.out.println("Pick up pile shuffled:");
+//        pickup.showPickUpPile();
+        discard.addCard(tempCard1);  // put tempCard1 back on the discard pile ...
+//        discard.showDiscardPile();
     }  // end refreshDiscard method
 
     public static boolean isValid (Card card, Discard discard) {

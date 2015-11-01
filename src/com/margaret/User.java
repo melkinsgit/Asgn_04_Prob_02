@@ -68,13 +68,15 @@ public class User extends Player {
         playHand.getCards().push(c);
     }
 
-    public static boolean isValid(Card card, Discard discard) {
-        if (card.getRank().equals(discard.seeTopCard().getRank())) {
-            return true;  // add card it to the discard pile
+    public boolean isValid(Card card, Discard discard) {
+        int eightSuit;
+
+        if (card.getRank().equals("8")) {
+            return true;  // add card to the discard pile
         } else if (card.getSuit().equals(discard.seeTopCard().getSuit())) {
             return true;  // add card to the discard pile
-        } else if (card.getRank().equals("8")) {
-            return true;  // add card to the discard pile
+        } else if (card.getRank().equals(discard.seeTopCard().getRank())) {
+            return true;  // add card it to the discard pile
         }
         return false;
     }  // end isValid method
@@ -117,18 +119,23 @@ public class User extends Player {
             } // end of !discarded loop
         }
 
-            if (pickPlay == 2) {
-                if (!pickUpPile.moreCards()) {
-                    System.out.println("Out of cards. Game over!");
+        if (pickPlay == 2) {
+            if (!pickUpPile.moreCards()) {
+                if (discardPile.getDiscard().size() < 2) {
+                    System.out.println("There are no cards in play. Game over.");
                     gameOver = true;
+                    return gameOver;
+                } else {
+                    ElkinsEights.refreshDiscard(discardPile, pickUpPile);
                 }
-
-                tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the pick up pile
-                addCard(tempCard);
-                System.out.println(tempCard + " was added to your hand.");
-                showPlayHand();
             }
-         // game over can be set to true if there are no more cards in the pick up pile, so make sure the game hasn't ended
+
+            tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the pick up pile
+            addCard(tempCard);
+            System.out.println(tempCard + " was added to your hand.");
+            showPlayHand();
+        }
+        // game over can be set to true if there are no more cards in the pick up pile, so make sure the game hasn't ended
 
         if (!gameOver && !this.moreCards()) {  // and if the user played their last card they won
             this.setWin(true);  // set the user's boolean to true showing they won
@@ -137,5 +144,25 @@ public class User extends Player {
         }
         return gameOver;
     }
+
+//    public int pickAnEight() {
+//        Scanner c = new Scanner(System.in);
+//        boolean picked = false;
+//        int suitNum;
+//        while (!picked) {
+//            try {
+//                System.out.println("You get to pick a suit:\n\t1. Spades\n" +
+//                        "\t2. Hearts\n" +
+//                        "\t3. Clubs\n" +
+//                        "\t4. Diamonds");
+//                suitNum = Integer.parseInt(c.nextLine());
+//                picked = true;
+//                return suitNum-1;
+//            } catch (Exception e) {
+//                System.out.println("That choice won't work. Please pick the number of the suit you want to play.");
+//            }
+//        }
+//        return 0;
+//    }
 }
 
