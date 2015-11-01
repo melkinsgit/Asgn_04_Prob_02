@@ -13,6 +13,7 @@ public class Deck {
         }
     }
 
+    // constructor with integer argument so decks can be cleared when needed
     public Deck (int i){ deck = new LinkedList<>();}
 
     public void shuffle() {

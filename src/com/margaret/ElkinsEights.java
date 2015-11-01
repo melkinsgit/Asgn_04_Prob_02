@@ -6,28 +6,19 @@ public class ElkinsEights {
 
     public static void main(String[] args) {
 
-        LinkedList<Card> temp = new LinkedList<>();  // not used
-        Card tempCard;  // doesn't need constructor call because value assigned before var is used
-        boolean myTurn; // doesn't need initial value because value assigned before var is used
-        int pickPlay;  // doesn't need initial value because value assigned before var is used
-        String winner;  // doesn't need initial value because value assigned before var is used
         boolean gameOver;  // doesn't need initial value because value assigned before var is used
         boolean playMore = true;  // true to start loop
         String reply;  // doesn't need initial value because value assigned before var is used
         Scanner c = new Scanner(System.in);
 
-
-        Card inPlay = new Card();
-
         // welcome the player to the game and ask them to enter their name as they would like it to appear on screen; take in the result as String userName
-        System.out.println("Welcome to Elkins Eights. Enter the name you'd like to use during this game.");
+        System.out.println("Welcome to Elkins Eights. This is a traditional Crazy 8s game, with 2 exceptions.\nYou only have to pick up one card if you don't have a card to play.\nThen your turns ends. But you can't determine the suit after you put down an 8.\nThe suit played will be the suit of your 8. You can still play an 8 at any time.\n\nSo, let's get started ... \nEnter the name you'd like to use during this game.");
         String userName = c.nextLine();
 
         // loop that plays the game more than once if the user Player wants to
         while (playMore) {
 
             gameOver = false;  // the game isn't over at the beginning
-            winner = "";  // there is no winner at the beginning
 
             // create a deck
             Deck deck = new Deck();
@@ -72,13 +63,9 @@ public class ElkinsEights {
         Card tempCard1;
         tempCard1 = discard.getTopCard().pop();  // remove the top card from the discard pile
         pickup.setPickUp(discard.getDiscard());  // make the pick up pile what's left of the discard pile
-//        pickup.showPickUpPile();
         discard.setDiscard(0);  // empty the old discard pile
         Collections.shuffle(pickup.getPickUp());  // shuffle the pick up pile
-//        System.out.println("Pick up pile shuffled:");
-//        pickup.showPickUpPile();
-        discard.addCard(tempCard1);  // put tempCard1 back on the discard pile ...
-//        discard.showDiscardPile();
+        discard.addCard(tempCard1);  // put tempCard1 back on the discard pile
     }  // end refreshDiscard method
 
     public static boolean isValid (Card card, Discard discard) {

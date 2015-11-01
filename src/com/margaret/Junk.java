@@ -164,4 +164,24 @@ public class Junk {
 //                    if (gameOver) break;
 //                } // end winner loop
 //            } // end game over loop
+
+    //    public int pickAnEight() {
+//        Scanner c = new Scanner(System.in);
+//        boolean picked = false;
+//        int suitNum;
+//        while (!picked) {
+//            try {
+//                System.out.println("You get to pick a suit:\n\t1. Spades\n" +
+//                        "\t2. Hearts\n" +
+//                        "\t3. Clubs\n" +
+//                        "\t4. Diamonds");
+//                suitNum = Integer.parseInt(c.nextLine());
+//                picked = true;
+//                return suitNum-1;
+//            } catch (Exception e) {
+//                System.out.println("That choice won't work. Please pick the number of the suit you want to play.");
+//            }
+//        }
+//        return 0;
+//    }
 }

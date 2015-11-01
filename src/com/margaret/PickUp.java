@@ -5,6 +5,7 @@ import java.util.*;
 public class PickUp {
     protected LinkedList<Card> pickUp;
 
+    // constructors
     public PickUp () {
         this.pickUp = new LinkedList<Card>();
     }
@@ -17,6 +18,7 @@ public class PickUp {
         return pickUp;
     }
 
+    // this is hear because it was used repeatedly during debugging
     public void showPickUpPile(){
         System.out.println("The pick up pile is:");
         for (Card card : pickUp){

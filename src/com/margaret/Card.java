@@ -32,6 +32,7 @@ public class Card {
         }
     }
 
+    @ Override
     // override of parent class toString(), super.toString() the parent
     public String toString() {
         return ranks[cardNum%13] + " of " + suits[cardNum/13];

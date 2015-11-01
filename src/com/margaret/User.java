@@ -1,18 +1,18 @@
 package com.margaret;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 public class User extends Player {
 
+    // constructor - just sets the playName per the super class Player
     public User(String name) {
         super(name);
     }
 
+    // this method asks the user which card they want to drop and returns that card object
     public Card cardToDrop() {
         int choice = 0;
-        Card dropCard = new Card();
+        Card dropCard;
         boolean valid = false;
         String choiceStr = "";
         Scanner scan = new Scanner(System.in);
@@ -35,7 +35,7 @@ public class User extends Player {
             }
         }
         dropCard = playHand.getCards().remove(choice - 1);
-        return dropCard;
+        return dropCard;  // this is the card that will be dropped
     }
 
     public int chooseMove() {
@@ -68,17 +68,17 @@ public class User extends Player {
         playHand.getCards().push(c);
     }
 
+    // this method tests whether or not the user's chosen card can be discarded
     public boolean isValid(Card card, Discard discard) {
-        int eightSuit;
 
-        if (card.getRank().equals("8")) {
+        if (card.getRank().equals("8")) {  // if it's an 8
             return true;  // add card to the discard pile
-        } else if (card.getSuit().equals(discard.seeTopCard().getSuit())) {
+        } else if (card.getSuit().equals(discard.seeTopCard().getSuit())) { // if its suit matches the suit of the card on the discard pile
             return true;  // add card to the discard pile
-        } else if (card.getRank().equals(discard.seeTopCard().getRank())) {
+        } else if (card.getRank().equals(discard.seeTopCard().getRank())) { // if its rank matches the rank of the card on the discard pile
             return true;  // add card it to the discard pile
         }
-        return false;
+        return false;  // otherwise, they can't put this card on the discard pile
     }  // end isValid method
 
     public boolean userTurn(Discard discardPile, PickUp pickUpPile) {
@@ -101,18 +101,18 @@ public class User extends Player {
 
             boolean discarded = false;
             // call a method to get the card the user wants to discard
-            tempCard = cardToDrop();
+            tempCard = cardToDrop();  // get a card to test for being valid on the discard pile
 
             // and until that card is a valid play, ask the user to keep choosing cards
             while (!discarded) {
-                if (isValid(tempCard, discardPile)) {  // if the user makes a valid choice
+                if (isValid(tempCard, discardPile)) {  // if the user has made a valid choice
                     discardPile.addCard(tempCard);  // put that card on the top of the discard pile
                     System.out.println(this.playName + " discarded the " + tempCard);  // confirm the discard for the user
                     discarded = true;  // then set the flag to exit the loop
                 } else {  // otherwise, ask the user for another card to discard
                     System.out.println("Sorry, you can't discard that card. Try again.");
                     this.addCard(tempCard);  // and put the card they originally discarded, back in their hand.
-                    showPlayHand();
+                    showPlayHand();  // remind the user of their hand the discard pile so they can choose another card
                     discardPile.showDiscardPile();
                     tempCard = cardToDrop();  // call the method to get the card the user wants to discard
                 }
@@ -120,23 +120,26 @@ public class User extends Player {
         }
 
         if (pickPlay == 2) {
-            if (!pickUpPile.moreCards()) {
-                if (discardPile.getDiscard().size() < 2) {
+            // the user has chosen to pick a card from the pick up pile
+
+            if (!pickUpPile.moreCards()) {  // if there no more cards in the pick up pile
+                if (discardPile.getDiscard().size() < 2) {  // and if there aren't enough in the discard pile to create a new pick up pile, the game is over
                     System.out.println("There are no cards in play. Game over.");
                     gameOver = true;
                     return gameOver;
                 } else {
-                    ElkinsEights.refreshDiscard(discardPile, pickUpPile);
+                    ElkinsEights.refreshDiscard(discardPile, pickUpPile);  // if there are enough cards in the discard pile, refresh the deck
                 }
             }
 
+            // once there is a working pick up pile the user can draw a card
             tempCard = pickUpPile.getPickUp().pop();  // pick up a card from the pick up pile
             addCard(tempCard);
             System.out.println(tempCard + " was added to your hand.");
             showPlayHand();
         }
-        // game over can be set to true if there are no more cards in the pick up pile, so make sure the game hasn't ended
 
+        // game over can be set to true if there are no more cards in the pick up pile, so make sure the game hasn't ended
         if (!gameOver && !this.moreCards()) {  // and if the user played their last card they won
             this.setWin(true);  // set the user's boolean to true showing they won
             System.out.println(this.getPlayName() + " won the game.");  // print a message to the screen
@@ -144,25 +147,5 @@ public class User extends Player {
         }
         return gameOver;
     }
-
-//    public int pickAnEight() {
-//        Scanner c = new Scanner(System.in);
-//        boolean picked = false;
-//        int suitNum;
-//        while (!picked) {
-//            try {
-//                System.out.println("You get to pick a suit:\n\t1. Spades\n" +
-//                        "\t2. Hearts\n" +
-//                        "\t3. Clubs\n" +
-//                        "\t4. Diamonds");
-//                suitNum = Integer.parseInt(c.nextLine());
-//                picked = true;
-//                return suitNum-1;
-//            } catch (Exception e) {
-//                System.out.println("That choice won't work. Please pick the number of the suit you want to play.");
-//            }
-//        }
-//        return 0;
-//    }
 }
 

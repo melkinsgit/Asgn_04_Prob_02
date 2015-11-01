@@ -6,14 +6,12 @@ public class Discard {
 
     public LinkedList<Card> discard;
 
+    // constructor
     public Discard (LinkedList<Card> discardPile){
         this.discard = discardPile;
     }
 
     public void showDiscardPile(){
-        Card inPlay = new Card();
-        Card tempCard;
-
         if (moreCards()) {
             System.out.println("The top card on the discard pile is: " + discard.peek());
         }

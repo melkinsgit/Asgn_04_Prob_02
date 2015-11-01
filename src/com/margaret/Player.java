@@ -5,6 +5,7 @@ public class Player {
     protected String playName;
     protected boolean win;
 
+    // constructors
     public Player (){
         this.playHand = new Hand();
         this.playName = "";
@@ -16,6 +17,7 @@ public class Player {
         this.win = false;
     }
 
+    // early on I added getters and setters, though several were not used
     public Hand getPlayHand() {
         return playHand;
     }
